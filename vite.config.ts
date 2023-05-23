@@ -16,6 +16,7 @@ import postcssPresetEnv from 'postcss-preset-env'
 import postcssEasings from 'postcss-easings'
 import postcssEasingGradients from 'postcss-easing-gradients'
 
+import { nodePolyfills } from "vite-plugin-node-polyfills"
 
 const pathSrc = fileURLToPath(new URL('./src', import.meta.url))
 
@@ -205,6 +206,15 @@ export default defineConfig(({mode}) => {
 				},
 			}),
 			viteSentry(getSentryConfig(env)),
+			nodePolyfills({
+				exclude: ["fs"],
+				globals: {
+					Buffer: true,
+					global: false,
+					process: false,
+				},
+				protocolImports: true,
+			}),
 		],
 		resolve: {
 			alias: [

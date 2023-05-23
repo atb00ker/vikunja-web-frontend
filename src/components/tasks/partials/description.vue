@@ -16,6 +16,7 @@
 				</span>
 			</CustomTransition>
 		</h3>
+		<!-- This section is edited because auto save in description was messing with encryption -->
 		<editor
 			:is-edit-enabled="canWrite"
 			:upload-callback="attachmentUpload"
@@ -25,7 +26,6 @@
 			:show-save="true"
 			edit-shortcut="e"
 			v-model="task.description"
-			@update:model-value="saveWithDelay"
 			@save="save"
 		/>
 	</div>

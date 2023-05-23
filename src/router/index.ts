@@ -65,6 +65,7 @@ const UserSettingsEmailUpdateComponent = () => import('@/views/user/settings/Ema
 const UserSettingsGeneralComponent = () => import('@/views/user/settings/General.vue')
 const UserSettingsPasswordUpdateComponent = () => import('@/views/user/settings/PasswordUpdate.vue')
 const UserSettingsTOTPComponent = () => import('@/views/user/settings/TOTP.vue')
+const UserSettingsE2EComponent = () => import("@/views/user/settings/bE2E.vue");
 
 // Project Handling
 const NewProjectComponent = () => import('@/views/project/NewProject.vue')
@@ -182,6 +183,11 @@ const router = createRouter({
 					path: '/user/settings/totp',
 					name: 'user.settings.totp',
 					component: UserSettingsTOTPComponent,
+				},
+				{
+					path: '/encrypt',
+					name: 'e2eencrypt',
+					component: UserSettingsE2EComponent,
 				},
 			],
 		},
