@@ -6,6 +6,7 @@ import LabelService from './label'
 
 import {colorFromHex} from '@/helpers/color/colorFromHex'
 import {SECONDS_A_DAY, SECONDS_A_HOUR, SECONDS_A_WEEK, SECONDS_A_MONTH, SECONDS_A_YEAR} from '@/constants/date'
+import { decryptTask, decryptTasks, encryptTask } from '@/custom/badCrypto'
 
 const parseDate = date => {
 	if (date) {
@@ -115,6 +116,28 @@ export default class TaskService extends AbstractService<ITask> {
 		}
 
 		return model as ITask
+	}
+
+	async create(model) {
+		const encryptedModel = await encryptTask(model);
+		const response = await super.create(encryptedModel);
+		return decryptTask(response);
+	}
+
+	async update(model) {
+		const encryptedModel = await encryptTask(model);
+		const response = await super.update(encryptedModel);
+		return decryptTask(response);
+	}
+
+	async getAll(model, params, page) {
+		const response = await super.getAll(model, params, page);
+		return decryptTasks(response);
+	}
+
+	async get(model, params) {
+		const response = await super.get(model, params);
+		return decryptTask(response);
 	}
 }
 

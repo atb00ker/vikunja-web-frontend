@@ -2,6 +2,7 @@ import AbstractService from '@/services/abstractService'
 import TaskModel from '@/models/task'
 
 import type {ITask} from '@/modelTypes/ITask'
+import { decryptTasks } from "@/custom/badCrypto";
 
 // FIXME: unite with other filter params types
 export interface GetAllTasksParams {
@@ -23,5 +24,10 @@ export default class TaskCollectionService extends AbstractService<ITask> {
 
 	modelFactory(data) {
 		return new TaskModel(data)
+	}
+
+	async getAll(model, params, page) {
+		const response = await super.getAll(model, params, page);
+		return decryptTasks(response);
 	}
 }
